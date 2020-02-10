@@ -1,27 +1,16 @@
-/* --------------------------------------------------------------------------
+/*
 
-   libmusicbrainz5 - Client library to access MusicBrainz
+    Copyright (C) 2012 Andrew Hawkins
+    Copyright (C) 2020 Andreas Rönnquist <andreas@ronnquist.net>
 
-   Copyright (C) 2012 Andrew Hawkins
+    Any code in this file may be redistributed or modified under the terms of
+    the GNU General Public Licence as published by the Free Software
+    Foundation; version 2 of the licence.
 
-   This file is part of libmusicbrainz5.
+    Based on MusicBrainz example program
+    https://github.com/metabrainz/libmusicbrainz/blob/master/examples/cdlookup_c.c
 
-   This library is free software; you can redistribute it and/or
-   modify it under the terms of the GNU Lesser General Public
-   License as published by the Free Software Foundation; either
-   version 2.1 of the License, or (at your option) any later version.
-
-   libmusicbrainz5 is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   Lesser General Public License for more details.
-
-   You should have received a copy of the GNU General Public License
-   along with this library.  If not, see <http://www.gnu.org/licenses/>.
-
-     $Id: Lifespan.cc 13211 2012-07-20 16:15:03Z adhawkins $
-
-----------------------------------------------------------------------------*/
+*/
 
 /*
 
