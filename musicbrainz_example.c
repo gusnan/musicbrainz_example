@@ -280,10 +280,10 @@ int cd_lookup(char *DiscID)
                                                         for (current_track = 0; current_track < mb5_track_list_size(TrackList); current_track++)
                                                         {
                                                             char *TrackTitle = 0;
-                                                            int RequiredLength = 0;
+                                                            int required_length = 0;
 
-                                                            Mb5Track track=mb5_track_list_item(TrackList,current_track);
-                                                            Mb5Recording recording=mb5_track_get_recording(track);
+                                                            Mb5Track track = mb5_track_list_item(TrackList, current_track);
+                                                            Mb5Recording recording = mb5_track_get_recording(track);
                                                             
                                                             /* Yet another way of getting string. Call it once to
                                                              * find out how long the buffer needs to be, allocate
@@ -292,15 +292,15 @@ int cd_lookup(char *DiscID)
                                                             
                                                             if (recording)
                                                             {
-                                                                RequiredLength=mb5_recording_get_title(recording,TrackTitle,0);
-                                                                TrackTitle=malloc(RequiredLength+1);
-                                                                mb5_recording_get_title(recording,TrackTitle,RequiredLength+1);
+                                                                required_length = mb5_recording_get_title(recording, TrackTitle, 0);
+                                                                TrackTitle = malloc(required_length + 1);
+                                                                mb5_recording_get_title(recording, TrackTitle, required_length + 1);
                                                             }
                                                             else
                                                             {
-                                                                RequiredLength=mb5_track_get_title(track,TrackTitle,0);
-                                                                TrackTitle=malloc(RequiredLength+1);
-                                                                mb5_track_get_title(track,TrackTitle,RequiredLength+1);
+                                                                required_length = mb5_track_get_title(track, TrackTitle, 0);
+                                                                TrackTitle = malloc(required_length + 1);
+                                                                mb5_track_get_title(track, TrackTitle, required_length + 1);
                                                             }
 
                                                             // If a compilation, print artist for each track.
