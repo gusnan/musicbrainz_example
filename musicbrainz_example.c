@@ -44,6 +44,20 @@
 
 #include "discid/discid.h"
 
+gchar *time_string(int value)
+{
+    int h, m, s;
+    gchar *result = NULL;
+
+    h = (value / 3600);
+    m = (value / 60) % 60;
+    s = value % 60;
+
+    result = g_strdup_printf("%02d:%02d:%02d", h, m, s);
+
+    return result;
+}
+
     
 int cd_lookup(char *DiscID)
 {
@@ -276,6 +290,10 @@ int cd_lookup(char *DiscID)
                                                         
                                                         GSList *list = artist_list;
 
+                                                        int tracklist_offset = mb5_track_list_get_offset(TrackList);
+
+                                                        printf("Tracklist offset: %d\n", tracklist_offset);
+
                                                         for (current_track = 0; current_track < mb5_track_list_size(TrackList); current_track++)
                                                         {
                                                             char *track_title = 0;
@@ -302,13 +320,19 @@ int cd_lookup(char *DiscID)
                                                                 mb5_track_get_title(track, track_title, required_length + 1);
                                                             }
 
+                                                            int track_length = mb5_track_get_length(track);
+
+                                                            gchar *temp_time_string = time_string(track_length / 1000);
+
                                                             // If a compilation, print artist for each track.
                                                             if (various_artists) {
-                                                                printf("Track: %d - %s - '%s'\n", mb5_track_get_position(track), (gchar*)(list->data), track_title);
+                                                                printf("Track: %d - %s - '%s (%s)'\n", mb5_track_get_position(track), (gchar*)(list->data), track_title, temp_time_string);
                                                             } else {
-                                                                printf("Track: %d - '%s'\n", mb5_track_get_position(track), track_title);
+                                                                printf("Track: %d - '%s (%s)'\n", mb5_track_get_position(track), track_title, temp_time_string);
                                                             }
                                                             
+                                                            g_free(temp_time_string);
+
                                                             list = list -> next;
 
                                                             free(track_title);
