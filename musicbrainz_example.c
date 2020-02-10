@@ -51,16 +51,16 @@ int cd_lookup(char *DiscID)
     Mb5NameCreditList name_credit_list;
     int required_size;
     
-    Mb5Query Query = mb5_query_new("musicbrainz_example-1.0", NULL, 0);
-    if (Query)
+    Mb5Query query = mb5_query_new("musicbrainz_example-1.0", NULL, 0);
+    if (query)
     {
-        Mb5Metadata Metadata1 = mb5_query_query(Query, "discid", DiscID, "", 0, NULL, NULL);
+        Mb5Metadata Metadata1 = mb5_query_query(query, "discid", DiscID, "", 0, NULL, NULL);
         char ErrorMessage[256];
 
-        tQueryResult Result = mb5_query_get_lastresult(Query);
-        int HTTPCode = mb5_query_get_lasthttpcode(Query);
+        tQueryResult Result = mb5_query_get_lastresult(query);
+        int HTTPCode = mb5_query_get_lasthttpcode(query);
 
-        mb5_query_get_lasterrormessage(Query, ErrorMessage, sizeof(ErrorMessage));
+        mb5_query_get_lasterrormessage(query, ErrorMessage, sizeof(ErrorMessage));
         printf("Result: %d\nHTTPCode: %d\nErrorMessage: '%s'\n", Result, HTTPCode, ErrorMessage);
 
         if (Metadata1)
@@ -105,7 +105,7 @@ int cd_lookup(char *DiscID)
 
                             mb5_release_get_id(Release, release_ID, sizeof(release_ID));
 
-                            Metadata2 = mb5_query_query(Query, "release", release_ID, "", 1, ParamNames, ParamValues);
+                            Metadata2 = mb5_query_query(query, "release", release_ID, "", 1, ParamNames, ParamValues);
 
                             if (Metadata2)
                             {
@@ -359,7 +359,7 @@ int cd_lookup(char *DiscID)
         }
 
         /* We must delete the original query object */
-        mb5_query_delete(Query);
+        mb5_query_delete(query);
     }
     
     return 0;
