@@ -208,7 +208,6 @@ int cd_lookup(char *DiscID)
 
                                                         for (current_track = 0; current_track < mb5_track_list_size(TrackList); current_track++)
                                                         {
-                                                            char *TrackTitle=0;
                                                             int RequiredLength=0;
 
                                                             Mb5Track track=mb5_track_list_item(TrackList, current_track);
@@ -279,7 +278,7 @@ int cd_lookup(char *DiscID)
 
                                                         for (current_track = 0; current_track < mb5_track_list_size(TrackList); current_track++)
                                                         {
-                                                            char *TrackTitle = 0;
+                                                            char *track_title = 0;
                                                             int required_length = 0;
 
                                                             Mb5Track track = mb5_track_list_item(TrackList, current_track);
@@ -292,27 +291,27 @@ int cd_lookup(char *DiscID)
                                                             
                                                             if (recording)
                                                             {
-                                                                required_length = mb5_recording_get_title(recording, TrackTitle, 0);
-                                                                TrackTitle = malloc(required_length + 1);
-                                                                mb5_recording_get_title(recording, TrackTitle, required_length + 1);
+                                                                required_length = mb5_recording_get_title(recording, track_title, 0);
+                                                                track_title = malloc(required_length + 1);
+                                                                mb5_recording_get_title(recording, track_title, required_length + 1);
                                                             }
                                                             else
                                                             {
-                                                                required_length = mb5_track_get_title(track, TrackTitle, 0);
-                                                                TrackTitle = malloc(required_length + 1);
-                                                                mb5_track_get_title(track, TrackTitle, required_length + 1);
+                                                                required_length = mb5_track_get_title(track, track_title, 0);
+                                                                track_title = malloc(required_length + 1);
+                                                                mb5_track_get_title(track, track_title, required_length + 1);
                                                             }
 
                                                             // If a compilation, print artist for each track.
                                                             if (various_artists) {
-                                                                printf("Track: %d - %s - '%s'\n", mb5_track_get_position(track), (gchar*)(list->data), TrackTitle);
+                                                                printf("Track: %d - %s - '%s'\n", mb5_track_get_position(track), (gchar*)(list->data), track_title);
                                                             } else {
-                                                                printf("Track: %d - '%s'\n", mb5_track_get_position(track), TrackTitle);
+                                                                printf("Track: %d - '%s'\n", mb5_track_get_position(track), track_title);
                                                             }
                                                             
                                                             list = list -> next;
 
-                                                            free(TrackTitle);
+                                                            free(track_title);
                                                         }
                                                     }
                                                     
