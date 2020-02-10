@@ -318,9 +318,9 @@ int cd_lookup(char *discid)
 
                                                             // If a compilation, print artist for each track.
                                                             if (compilation) {
-                                                                printf("%02d - %s - '%s (%s)'\n", mb5_track_get_position(track), (gchar*)(list->data), track_title, temp_time_string);
+                                                                printf("%02d - %s - '%s' (%s)\n", mb5_track_get_position(track), (gchar*)(list->data), track_title, temp_time_string);
                                                             } else {
-                                                                printf("%02d - '%s (%s)'\n", mb5_track_get_position(track), track_title, temp_time_string);
+                                                                printf("%02d - '%s' (%s)\n", mb5_track_get_position(track), track_title, temp_time_string);
                                                             }
                                                             
                                                             g_free(temp_time_string);
