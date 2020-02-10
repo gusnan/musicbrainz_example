@@ -398,19 +398,18 @@ int main(int argc, const char *argv[])
     
     if ( discid_read_sparse(disc, "/dev/cdrom", 0) == 0 ) {
         fprintf(stderr, "Error: %s\n", discid_get_error_msg(disc));
-        
+
         discid_free(disc);
         return 1;
     }
-    
-    char *discid = discid_get_id(disc);
-    
-    printf("DiscID: %s\n", discid);
-    
-    cd_lookup(discid);
-    
-    discid_free(disc);
-    
 
-	return 0;
+    char *discid = discid_get_id(disc);
+
+    printf("DiscID: %s\n", discid);
+
+    cd_lookup(discid);
+
+    discid_free(disc);
+
+    return 0;
 }
