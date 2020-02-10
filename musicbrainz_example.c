@@ -250,11 +250,11 @@ int cd_lookup(char *DiscID)
                                                                     required_size = mb5_artist_get_name (artist, artist_name, 0);
                                                                     artist_name = g_new (char, required_size + 1);
                                                                     mb5_artist_get_name (artist, artist_name, required_size + 1);
-                                                                    
-                                                                    g_free(artist_name);
 
                                                                     gchar *temp_artist = g_strdup(artist_name);
                                                                     
+                                                                    g_free(artist_name);
+
                                                                     temp_list = g_slist_append(temp_list, temp_artist);
                                                                 }
                                                                 
