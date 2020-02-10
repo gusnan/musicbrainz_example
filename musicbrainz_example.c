@@ -222,8 +222,6 @@ int cd_lookup(char *DiscID)
 
                                                         for (current_track = 0; current_track < mb5_track_list_size(TrackList); current_track++)
                                                         {
-                                                            int RequiredLength=0;
-
                                                             Mb5Track track=mb5_track_list_item(TrackList, current_track);
                                                             Mb5Recording recording=mb5_track_get_recording(track);
                                                             
