@@ -172,8 +172,8 @@ int cd_lookup(char *DiscID)
                                                 Mb5Medium Medium = mb5_medium_list_item(MediumList, current_medium);
                                                 if (Medium)
                                                 {
-                                                    int AllocSize=10;
-                                                    char *MediumTitle = malloc(AllocSize);
+                                                    int alloc_size = 10;
+                                                    char *MediumTitle = malloc(alloc_size);
                                                     int required_size;
 
                                                     Mb5TrackList TrackList = mb5_medium_get_tracklist(Medium);
@@ -183,8 +183,8 @@ int cd_lookup(char *DiscID)
                                                      * If not, reallocate it to be big enough and get it again.
                                                      */
 
-                                                    required_size = mb5_medium_get_title(Medium, MediumTitle, AllocSize);
-                                                    if (required_size > AllocSize)
+                                                    required_size = mb5_medium_get_title(Medium, MediumTitle, alloc_size);
+                                                    if (required_size > alloc_size)
                                                     {
                                                         MediumTitle = realloc(MediumTitle, required_size+1);
                                                         mb5_medium_get_title(Medium, MediumTitle, required_size+1);
