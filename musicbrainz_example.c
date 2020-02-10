@@ -48,7 +48,7 @@ gchar *time_string(int value)
 }
 
     
-int cd_lookup(char *DiscID)
+int cd_lookup(char *discid)
 {
     Mb5ArtistCredit artist_credit;
     Mb5NameCreditList name_credit_list;
@@ -57,14 +57,14 @@ int cd_lookup(char *DiscID)
     Mb5Query query = mb5_query_new("musicbrainz_example-1.0", NULL, 0);
     if (query)
     {
-        Mb5Metadata Metadata1 = mb5_query_query(query, "discid", DiscID, "", 0, NULL, NULL);
-        char ErrorMessage[256];
+        Mb5Metadata Metadata1 = mb5_query_query(query, "discid", discid, "", 0, NULL, NULL);
+        char errormessage[256];
 
-        tQueryResult Result = mb5_query_get_lastresult(query);
-        int HTTPCode = mb5_query_get_lasthttpcode(query);
+        tQueryResult result = mb5_query_get_lastresult(query);
+        int httpcode = mb5_query_get_lasthttpcode(query);
 
-        mb5_query_get_lasterrormessage(query, ErrorMessage, sizeof(ErrorMessage));
-        printf("Result: %d\nHTTPCode: %d\nErrorMessage: '%s'\n", Result, HTTPCode, ErrorMessage);
+        mb5_query_get_lasterrormessage(query, errormessage, sizeof(errormessage));
+        printf("Result: %d\nHTTPCode: %d\nErrorMessage: '%s'\n", result, httpcode, errormessage);
 
         if (Metadata1)
         {
@@ -79,16 +79,16 @@ int cd_lookup(char *DiscID)
                      *clone it. We are now responsible for deleting the object
                     */
 
-                    int ThisRelease = 0;
+                    int current_release = 0;
 
                     printf("Found %d release(s)\n", mb5_release_list_size(release_list));
                     
                     printf("---------------------------------\n");
 
-                    for (ThisRelease = 0; ThisRelease < mb5_release_list_size(release_list); ThisRelease++)
+                    for (current_release = 0; current_release < mb5_release_list_size(release_list); current_release++)
                     {
                         Mb5Metadata Metadata2 = 0;
-                        Mb5Release Release = mb5_release_list_item(release_list, ThisRelease);
+                        Mb5Release Release = mb5_release_list_item(release_list, current_release);
 
                         if (Release)
                         {
