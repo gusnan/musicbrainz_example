@@ -57,7 +57,7 @@ int cd_lookup(char *discid)
     Mb5Query query = mb5_query_new("musicbrainz_example-1.0", NULL, 0);
     if (query)
     {
-        Mb5Metadata Metadata1 = mb5_query_query(query, "discid", discid, "", 0, NULL, NULL);
+        Mb5Metadata metadata1 = mb5_query_query(query, "discid", discid, "", 0, NULL, NULL);
         char errormessage[256];
 
         tQueryResult result = mb5_query_get_lastresult(query);
@@ -66,12 +66,12 @@ int cd_lookup(char *discid)
         mb5_query_get_lasterrormessage(query, errormessage, sizeof(errormessage));
         printf("Result: %d\nHTTPCode: %d\nErrorMessage: '%s'\n", result, httpcode, errormessage);
 
-        if (Metadata1)
+        if (metadata1)
         {
-            Mb5Disc Disc = mb5_metadata_get_disc(Metadata1);
-            if (Disc)
+            Mb5Disc disc = mb5_metadata_get_disc(metadata1);
+            if (disc)
             {
-                Mb5ReleaseList release_list = mb5_disc_get_releaselist(Disc);
+                Mb5ReleaseList release_list = mb5_disc_get_releaselist(disc);
                 if (release_list)
                 {
                     /*
@@ -87,7 +87,7 @@ int cd_lookup(char *discid)
 
                     for (current_release = 0; current_release < mb5_release_list_size(release_list); current_release++)
                     {
-                        Mb5Metadata Metadata2 = 0;
+                        Mb5Metadata metadata2 = 0;
                         Mb5Release Release = mb5_release_list_item(release_list, current_release);
 
                         if (Release)
@@ -108,11 +108,11 @@ int cd_lookup(char *discid)
 
                             mb5_release_get_id(Release, release_ID, sizeof(release_ID));
 
-                            Metadata2 = mb5_query_query(query, "release", release_ID, "", 1, ParamNames, ParamValues);
+                            metadata2 = mb5_query_query(query, "release", release_ID, "", 1, ParamNames, ParamValues);
 
-                            if (Metadata2)
+                            if (metadata2)
                             {
-                                Mb5Release full_release = mb5_metadata_get_release(Metadata2);
+                                Mb5Release full_release = mb5_metadata_get_release(metadata2);
                                 
                                 
                                 // Get the album artist
@@ -143,7 +143,7 @@ int cd_lookup(char *discid)
                                      * So we need to filter out the only the media we want.
                                      */
 
-                                    Mb5MediumList MediumList = mb5_release_media_matching_discid(full_release, DiscID);
+                                    Mb5MediumList MediumList = mb5_release_media_matching_discid(full_release, discid);
                                     if (MediumList)
                                     {
                                         if (mb5_medium_list_size(MediumList))
@@ -354,7 +354,7 @@ int cd_lookup(char *discid)
                                 }
 
                                 /* We must delete anything returned from the query methods */
-                                mb5_metadata_delete(Metadata2);
+                                mb5_metadata_delete(metadata2);
                             }
 
                             free(ParamValues[0]);
@@ -370,7 +370,7 @@ int cd_lookup(char *discid)
             }
 
             /* We must delete anything returned from the query methods */
-            mb5_metadata_delete(Metadata1);
+            mb5_metadata_delete(metadata1);
         }
 
         /* We must delete the original query object */
