@@ -208,14 +208,14 @@ int cd_lookup(char *DiscID)
                                                     
                                                     gchar *temp_string = NULL;
                                                     
-                                                    gboolean various_artists = FALSE;
+                                                    gboolean compilation = FALSE;
                                                            
                                                     if (TrackList)
                                                     {
                                                         int current_track=0;
                                                         
                                                         
-                                                        gchar *temp_artist = g_strdup("");
+                                                        gchar *temp_artist = NULL; // g_strdup("");
                                                         
                                                         temp_list = artist_list;
                                                             
@@ -251,6 +251,8 @@ int cd_lookup(char *DiscID)
                                                                     artist_name = g_new (char, required_size + 1);
                                                                     mb5_artist_get_name (artist, artist_name, required_size + 1);
                                                                     
+                                                                    g_free(artist_name);
+
                                                                     gchar *temp_artist = g_strdup(artist_name);
                                                                     
                                                                     temp_list = g_slist_append(temp_list, temp_artist);
@@ -277,9 +279,12 @@ int cd_lookup(char *DiscID)
                                                                 } else {
                                                                     
                                                                     if (g_strcmp0(temp_list->data, temp_string) != 0) {
-                                                                        various_artists = TRUE;
+                                                                        compilation = TRUE;
                                                                     }
                                                                 }
+                                                            }
+                                                            if (temp_string != NULL) {
+                                                                g_free(temp_string);
                                                             }
                                                         }
                                                     }
@@ -325,7 +330,7 @@ int cd_lookup(char *DiscID)
                                                             gchar *temp_time_string = time_string(track_length / 1000);
 
                                                             // If a compilation, print artist for each track.
-                                                            if (various_artists) {
+                                                            if (compilation) {
                                                                 printf("%02d - %s - '%s (%s)'\n", mb5_track_get_position(track), (gchar*)(list->data), track_title, temp_time_string);
                                                             } else {
                                                                 printf("%02d - '%s (%s)'\n", mb5_track_get_position(track), track_title, temp_time_string);
@@ -341,10 +346,10 @@ int cd_lookup(char *DiscID)
                                                     
                                                     printf("Compilation: ");
                                                     
-                                                    if (various_artists) {
-                                                        printf("TRUE");
+                                                    if (compilation) {
+                                                        printf("Yes");
                                                     } else {
-                                                        printf("FALSE");
+                                                        printf("No");
                                                     }
                                                     
                                                     printf("\n");
